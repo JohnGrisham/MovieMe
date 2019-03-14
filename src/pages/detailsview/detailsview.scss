@@ -1,0 +1,88 @@
+page-detailsview {
+
+  .movie .poster {
+      min-width: 400px;
+      height: 525px;
+  }
+
+  .movie {
+    width: 100%;
+    display: inline-block;
+    margin: 0px;
+    min-width: 2000px;
+  }
+
+  .movie-inner {
+    width: 40%;
+    display: inline-block;
+  }
+
+  .text {
+    display: inline-block;
+    position: absolute;
+    top: 35%;
+    width: 25%;
+  }
+
+  .title {
+    width: fit-content;
+    padding-bottom: 10px;
+  }
+
+  .overview {
+    max-width: 500px;
+    width: 100%;
+    font-size: initial;
+    font-weight: 400;
+    margin: auto;
+  }
+
+  .showings, .showtimes {
+    width: fit-content;
+    margin: auto;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .scroll-content {
+    overflow-y: hidden;
+    padding: 0px !important;
+  }
+
+  .tabbar .show-tabbar {
+    opacity: 0;
+  }
+
+  circle-progress {
+    float: right;
+    display: contents;
+  }
+
+  .item {
+    width: fit-content;
+    font-weight: bold;
+  }
+
+  #cast {
+    width: max-content;
+    margin-left: 10px;
+  }
+
+  .actor {
+    display: inline-block;
+    padding-right: 10px;
+    float: left;
+    max-width: 125px;
+  }
+
+  .actor img {
+    height: 150px;
+    width: 125px;
+  }
+
+  a {
+    style: none;
+  }
+}

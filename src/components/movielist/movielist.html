@@ -1,0 +1,17 @@
+<!-- Generated template for the MovielistComponent component -->
+<ion-list class="movieList">
+  <ion-item *ngFor="let movie of movies">
+    <div class="movie">
+        <a (click)="pushDetails(movie)">
+        <img src="{{movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : '/assets/imgs/no_image.jpg'}}" class="poster">
+        </a>
+        <circle-progress
+        [percent]="movie.vote_average * 10"
+        [animation]="false"
+        [radius]="45"></circle-progress>
+        <div padding bold class="title">{{movie.title}}</div>
+        <div padding class="release-date">{{movie.release_date}}</div>
+        <p padding class="overview">{{movie.overview}}</p>
+    </div>
+  </ion-item>
+</ion-list>

@@ -1,0 +1,27 @@
+page-home {
+
+  .no-showings {
+    margin-top: 50px;
+  }
+
+  .movie {
+      width: 300px;
+      margin: auto;
+      background-color: white;
+      position: relative;
+      z-index: 2;
+  }
+
+  .overview {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    max-width: 350px;
+    height: auto;
+    font-size: 120%;
+    z-index: 0;
+  }
+}

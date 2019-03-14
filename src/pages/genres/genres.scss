@@ -1,0 +1,11 @@
+page-genres {
+  .active {
+    background-color: white;
+    color: black;
+  }
+
+  .inactive:hover {
+    background-color: white !important;
+    color: black;
+  }
+}

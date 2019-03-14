@@ -1,0 +1,79 @@
+movie-slider {
+
+    ion-slides {
+      height: 700px;
+    }
+
+    .inner-movie {
+      position: relative;
+      background-color: white;
+      z-index: 1;
+      margin-bottom: 25px;
+      -webkit-overflow-scrolling: touch;
+      overflow-y: -webkit-paged-y;
+    }
+
+    .swiper-wrapper {
+      -webkit-overflow-scrolling: touch;
+      -webkit-transform: translateZ(0px);
+      -webkit-transform: translate3d(0,0,0);
+      -webkit-perspective: 1000;
+    }
+
+    .card {
+      display: flex;
+      height: 650px;
+      align-items: center;
+      justify-content: center;
+      max-width: 40% !important;
+    }
+
+    .genres {
+      width: max-content;
+      margin: auto;
+    }
+
+    .genres h5 {
+      display: inline;
+    }
+
+    .slide-zoom {
+       position: relative;
+       top: 0;
+       left: 0;
+       align-items: center;
+       justify-content: center;
+    }
+
+    .swiper-slide-active {
+      transition: all .2s ease-in-out;
+      transform: scale(1.1);
+    }
+
+    .swiper-slide-active .overview {
+      animation: marquee 10s linear infinite;
+      bottom: -13%;
+    }
+
+    .swiper-slide-active .scrolling {
+      animation: sideScroll 10s linear infinite;
+    }
+
+    @keyframes marquee {
+      from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(auto);
+            }
+    }
+
+    @keyframes sideScroll {
+      from {
+                transform: translateX(50%);
+            }
+            to {
+                transform: translateX(-20%);
+            }
+    }
+}

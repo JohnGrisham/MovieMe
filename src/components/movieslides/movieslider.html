@@ -1,0 +1,22 @@
+  <ion-slides #Slides class="slides" *ngIf="movies.length > 0" loop="true" centeredSlides="true" slidesPerView="3">
+    <ion-slide class="movie card" *ngFor="let movie of movies">
+      <div #innerMovie class="inner-movie">
+        <a (click)="pushDetails(movie)">
+        <div *ngIf="movie.showtimes">
+          <div *ngIf="movie.showtimes.length > 0" class="showings">
+            <div>Now Playing At: {{movie.showtimes[0].theatre.name}}</div>
+            <div class="showtimes">
+              <h3 *ngFor="let showtime of movie.showtimes">{{showtime.dateTime | date : 'shortTime'}}</h3>
+            </div>
+          </div>
+        </div>
+        <img src="{{movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : '/assets/imgs/no_image.jpg'}}" class="poster">
+        <h3 class="title">{{movie.title}}</h3>
+        </a>
+        <div #genres *ngIf="genreDisplay" class="genres" [ngClass]="{'scrolling' : checkOverflow(genres, innerMovie)}">
+          <h5 *ngFor="let genre of movie.genres; let last = last">{{genre.id ? setGenreName(genre) : genre}}<span *ngIf="!last">&#47;</span></h5>
+        </div>
+      </div>
+        <p class="overview">{{movie.overview ? movie.overview : movie.longDescription}}</p>
+    </ion-slide>
+  </ion-slides>

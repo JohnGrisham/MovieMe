@@ -1,0 +1,29 @@
+page-searchview {
+  .movie {
+    height: 400px;
+    background-color: white;
+    position: relative;
+    z-index: 2;
+  }
+
+  .poster {
+    float: left;
+  }
+
+  .title, .release-date {
+    display: flex;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .overview {
+    display: inline-block;
+    white-space: normal;
+    max-width: 65%;
+    font-weight: 400;
+    font-size: 120%;
+    min-width: 700px;
+  }
+}

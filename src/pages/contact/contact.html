@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Contact
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header *ngIf="auth.getEmail()">{{auth.getEmail()}}>Follow us on Twitter</ion-list-header>
+    <ion-item>
+      <ion-icon name="ionic" item-start></ion-icon>
+      @ionicframework
+    </ion-item>
+
+    <ion-item (click)="logout()" *ngIf="auth.authenticated">
+    	<ion-icon name="log-out" item-left></ion-icon>
+    	Log out
+    </ion-item>
+
+  <ion-item (click)="login()" *ngIf="!auth.authenticated">
+  	<ion-icon name="log-in" item-left></ion-icon>
+  	Log in
+  </ion-item>
+
+  <ion-item (click)="verifyUserEmail()" *ngIf="auth.authenticated">
+    <ion-icon name="verify-email" item-left></ion-icon>
+    Send email verification link
+    <div *ngIf="verificationError">{{verificationError}}</div>
+    <div *ngIf="verificationSent">A verification email was sent to {{this.auth.user.email}}</div>
+  </ion-item>
+  </ion-list>
+</ion-content>

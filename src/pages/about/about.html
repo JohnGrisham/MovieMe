@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Discover
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form class="" method="get" #movieForm="ngForm" (ngSubmit)="searchMovie($event)">
+    <input type="text" name="movie-search" [(ngModel)]="titleQuery">
+    <label for="movie-search">Search</label>
+    <button type="submit" name="submit">Search Movies</button>
+  </form>
+
+  <ion-tabs tabsPlacement="top" id="discover-tabs">
+    <ion-tab [root]="popular" tabTitle="Popular" tabIcon="home"></ion-tab>
+    <ion-tab [root]="topRated" tabTitle="Top Rated" tabIcon="information-circle"></ion-tab>
+    <ion-tab [root]="upcoming" tabTitle="Upcoming" tabIcon="contacts"></ion-tab>
+  </ion-tabs>
+</ion-content>

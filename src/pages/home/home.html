@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <movie-slider id="nowPlaying" *ngIf="mdata.inTheatres.length > 0" [movies]="mdata.inTheatres"></movie-slider>
+
+  <movie-slider id="nowPlayingNearYou" *ngIf="mdata.nearbyShowings.length > 0" [movies]="mdata.nearbyShowings"></movie-slider>
+
+  <movie-slider id="genreSuggestions" *ngIf="mdata.suggestedByGenre.length > 0" [movies]="mdata.suggestedByGenre" [showGenres]="true"></movie-slider>
+
+  <div class="no-showings" *ngIf="mdata.nearbyShowings.length <= 0 && loc.nearbyTheaters.length > 0">
+    <h3>No showtimes could be found but here are the theatres near you!</h3>
+    <h4 *ngFor="let theatre of loc.nearbyTheaters">
+      {{theatre.name}}
+      <a (click)="linkToTheatre(theatre)">{{theatre.website}}</a>
+      <p>{{theatre.formatted_phone_number}}</p>
+    </h4>
+  </div>
+<div style="position: absolute; width: 100%; height: 100%;">
+<google-map style="height: 100%;" apiKey="AIzaSyBKM9opS6Z9K3HCe7mZzviapQyrpnfy_vw"></google-map>
+</div>
+</ion-content>

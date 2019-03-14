@@ -1,0 +1,15 @@
+<!--
+  Generated template for the UpcomingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <movie-list [movies]="movies"></movie-list>
+  <ion-infinite-scroll threshold="10%" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more content...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

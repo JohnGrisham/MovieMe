@@ -1,0 +1,9 @@
+page-about {
+  .scroll-content {
+    overflow: hidden;
+  }
+
+  #discover-tabs ion-tab .ion-page .content .scroll-content  {
+    overflow: auto !important;
+  }
+}

@@ -1,0 +1,30 @@
+<!--
+  Generated template for the SearchviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Showing results for: {{titleQuery}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let movie of mdata.movies">
+      <div class="movie">
+          <a (click)="pushDetails(movie)">
+          <img src="{{movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : '/assets/imgs/no_image.jpg'}}" class="poster">
+          </a>
+          <circle-progress
+          [percent]="movie.vote_average * 10"
+          [animation]="false"
+          [radius]="45"></circle-progress>
+          <div padding bold class="title">{{movie.title}}</div>
+          <div padding class="release-date">{{movie.release_date}}</div>
+          <p padding class="overview">{{movie.overview}}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

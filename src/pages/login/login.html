@@ -1,0 +1,70 @@
+<ion-header>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Log in</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<form (ngSubmit)="login()" [formGroup]="loginForm">
+		<ion-list inset>
+
+			<ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
+				<ion-input type="text" placeholder="Email" formControlName="email" #email></ion-input>
+			</ion-item>
+
+			<div ngxErrors="email" #emailErrors="ngxErrors">
+				<div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">It should be a valid email</div>
+			</div>
+
+			<ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">
+				<ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+			</ion-item>
+
+			<div ngxErrors="password" #passwordErrors="ngxErrors">
+				<div [ngxError]="['minlength', 'required']" [when]="['touched']">It should be at least 5 characters</div>
+			</div>
+		</ion-list>
+
+		<div padding-horizontal>
+			<div class="form-error">{{loginError}}</div>
+
+			<button ion-button full type="submit" [disabled]="!loginForm.valid">Log in</button>
+			<div class="login-footer">
+				<p>
+					<a (click)="showReset = !showReset">Forgot password?</a>
+					If you're a new user, please sign up.
+					<span *ngIf="showReset">
+						<form (ngSubmit)="sendResetLink()" [formGroup]="forgotPassForm">
+							<ion-input type="text" formControlName="email_reset" value="{{email.value ? email.value : undefined}}" placeholder="Email" #resetEmail></ion-input>
+
+							<div ngxErrors="email_reset" #emailErrors="ngxErrors">
+								<div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">valid email required</div>
+							</div>
+
+							<div *ngIf="resetError">{{resetError}}</div>
+							<div *ngIf="resetEmailSent">A password reset link was sent to {{resetEmail.value}}</div>
+
+							<button ion-button full type="submit" [disabled]="!forgotPassForm.valid || resetEmailSent">Send Reset Link</button>
+						</form>
+					</span>
+				</p>
+			</div>
+
+			<ion-list>
+
+				<button ion-button icon-left block clear (click)="googleLog()">
+					<ion-icon name="logo-google"></ion-icon>
+					Log in with Google
+				</button>
+
+				<button ion-button icon-left block clear (click)="signup()">
+					<ion-icon name="person-add"></ion-icon>
+					Sign up
+				</button>
+			</ion-list>
+		</div>
+	</form>
+</ion-content>
