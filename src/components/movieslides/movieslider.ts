@@ -12,17 +12,20 @@ import { MyApp } from '../../../src/app/app.component';
   templateUrl: './movieslider.html'
 })
 @Directive({
-  selector: '[movies], [showGenres]'// Attribute selector
+  selector: '[movies], [showGenres], [slidesPerView]'// Attribute selector
 })
 export class MovieSliderComponent implements AfterViewInit {
 
   @Input('movies') movies: Movie[];
   @Input('showGenres') genreDisplay: Boolean = false;
+  @Input('slidesPerView') slidesPerView: number = 3;
 
   @ViewChild('Slides') slides: Slides;
 
   private checkInitalOverflow = false;
   private screenResized = false;
+
+  private centered: boolean = true;
 
   constructor(private navCtrl: NavController, private mdata: MoviedatabaseService, private cd: ChangeDetectorRef, private platform: Platform) {
 
@@ -36,7 +39,6 @@ export class MovieSliderComponent implements AfterViewInit {
         this.platform.resize.subscribe(() => {
         this.screenResized = true;
 
-        this.slides.resize();
       });
 
       this.cd.detectChanges();

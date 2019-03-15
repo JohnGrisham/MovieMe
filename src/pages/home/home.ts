@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavOptions, IonicPage, Slides } from 'ionic-angular';
+import { NavController, NavOptions, IonicPage, Slides, Platform } from 'ionic-angular';
 import { Plugins } from '@capacitor/core';
 import { Http } from '@angular/http';
 import { NgForm } from '@angular/forms';
@@ -24,8 +24,9 @@ export class HomePage implements AfterViewInit {
 
   private locationSearched: Boolean = false;
   private suggestionsTemporary: Movie[] = [];
+  private slidesPerView: number = 3;
 
-  constructor(public navCtrl: NavController, private http: Http, private auth: AuthService, private loc: LocService, private mdata: MoviedatabaseService, private cd: ChangeDetectorRef) {
+  constructor(public navCtrl: NavController, private http: Http, private auth: AuthService, private loc: LocService, private mdata: MoviedatabaseService, private cd: ChangeDetectorRef, private platform: Platform) {
 
     if(this.auth.authenticated) {
 
@@ -61,8 +62,17 @@ export class HomePage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.platform.resize.subscribe(() => {
+
+    this.setSlidesPerView();
+
+    });
         this.cd.detectChanges();
     }
+
+  ionViewDidLoad() {
+    this.setSlidesPerView();
+  }
 
   getNowPlaying() {
     this.mdata.nowPlaying().toPromise()
@@ -103,5 +113,14 @@ export class HomePage implements AfterViewInit {
              resolve();
        });
    });
+   }
+
+   setSlidesPerView() {
+     // On a desktop, and is wider than 1200px
+     if(this.platform.width() > 768) {
+       this.slidesPerView = 3;
+     } else {
+       this.slidesPerView = 1;
+     }
    }
 }
