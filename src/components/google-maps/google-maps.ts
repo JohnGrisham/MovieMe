@@ -1,7 +1,7 @@
 import { Component, Input, Renderer2, ElementRef, Inject, AfterViewInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Plugins } from '@capacitor/core';
-import {} from '@types/googlemaps';
+import {} from 'googlemaps';
 
 import { LocService } from '../../services/loc.service';
 
