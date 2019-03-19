@@ -1,4 +1,4 @@
-  <ion-slides #Slides class="slides" *ngIf="movies.length > 0" loop="true" [centeredSlides]="centered" [slidesPerView]="slidesPerView">
+  <ion-slides #Slides class="slides" *ngIf="movies.length > 0" centeredSlides="true" loop="true" slidesPerView="3">
     <ion-slide class="movie card" *ngFor="let movie of movies">
       <div #innerMovie class="inner-movie">
         <a (click)="pushDetails(movie)">

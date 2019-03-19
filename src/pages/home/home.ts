@@ -1,17 +1,13 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavOptions, IonicPage, Slides, Platform } from 'ionic-angular';
+import { Component, ViewChildren, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { NavController, IonicPage, Slides, Platform } from 'ionic-angular';
+import { MovieSliderComponent } from '../../components/movieslides/movieslider';
 import { Plugins } from '@capacitor/core';
-import { Http } from '@angular/http';
-import { NgForm } from '@angular/forms';
 import { Movie } from '../../shared/movie/movie.model';
-import { UserLocation } from '../../shared/location/userlocation.model';
 import { AuthService } from '../../services/auth.service';
 import { LocService } from '../../services/loc.service';
 import { MoviedatabaseService } from '../../services/moviedatabase.service';
 import { LoginPage } from '../login/login';
 import { GenresPage } from '../genres/genres';
-import { GoogleMapComponent } from '../../components/google-maps/google-maps';
-import { MovieSliderComponent } from '../../components/movieslides/movieslider';
 
 const { Browser } = Plugins;
 
@@ -22,11 +18,11 @@ const { Browser } = Plugins;
 })
 export class HomePage implements AfterViewInit {
 
-  private locationSearched: Boolean = false;
-  private suggestionsTemporary: Movie[] = [];
-  private slidesPerView: number = 3;
+  @ViewChildren('Slider') Slides: MovieSliderComponent[];
 
-  constructor(public navCtrl: NavController, private http: Http, private auth: AuthService, private loc: LocService, private mdata: MoviedatabaseService, private cd: ChangeDetectorRef, private platform: Platform) {
+  private suggestionsTemporary: Movie[] = [];
+
+  constructor(public navCtrl: NavController, private auth: AuthService, private loc: LocService, private mdata: MoviedatabaseService, private cd: ChangeDetectorRef, private platform: Platform) {
 
     if(this.auth.authenticated) {
 
@@ -62,16 +58,13 @@ export class HomePage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.platform.resize.subscribe(() => {
+        this.platform.resize.subscribe(() => {
 
-    this.setSlidesPerView();
-
-    });
-        this.cd.detectChanges();
+        this.setSlidesPerView();
+        });
     }
 
   ionViewDidLoad() {
-    this.setSlidesPerView();
   }
 
   getNowPlaying() {
@@ -116,11 +109,20 @@ export class HomePage implements AfterViewInit {
    }
 
    setSlidesPerView() {
-     // On a desktop, and is wider than 1200px
-     if(this.platform.width() > 768) {
-       this.slidesPerView = 3;
-     } else {
-       this.slidesPerView = 1;
+
+     if(this.platform.width() >= 1200) {
+       this.Slides.forEach((slider) => slider.slider.slidesPerView = 5);
+       console.log(this.platform.width());
      }
+
+     else if(this.platform.width() >= 319 && this.platform.width() < 1200) {
+       this.Slides.forEach((slider) => slider.slider.slidesPerView = 3);
+     }
+
+     else if(this.platform.width() < 319) {
+       this.Slides.forEach((slider) => slider.slider.slidesPerView = 1);
+     }
+
+     this.cd.detectChanges();
    }
 }

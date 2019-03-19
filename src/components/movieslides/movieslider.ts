@@ -5,27 +5,22 @@ import { Genre } from '../../shared/genre/genre.model';
 import { DetailsviewPage } from '../../pages/detailsview/detailsview';
 import { MoviedatabaseService } from '../../services/moviedatabase.service';
 
-import { MyApp } from '../../../src/app/app.component';
-
 @Component({
   selector: 'movie-slider',
   templateUrl: './movieslider.html'
 })
 @Directive({
-  selector: '[movies], [showGenres], [slidesPerView]'// Attribute selector
+  selector: '[movies], [showGenres]'// Attribute selector
 })
 export class MovieSliderComponent implements AfterViewInit {
 
   @Input('movies') movies: Movie[];
   @Input('showGenres') genreDisplay: Boolean = false;
-  @Input('slidesPerView') slidesPerView: number = 3;
 
-  @ViewChild('Slides') slides: Slides;
+  @ViewChild('Slides') slider: Slides;
 
   private checkInitalOverflow = false;
   private screenResized = false;
-
-  private centered: boolean = true;
 
   constructor(private navCtrl: NavController, private mdata: MoviedatabaseService, private cd: ChangeDetectorRef, private platform: Platform) {
 
@@ -42,6 +37,7 @@ export class MovieSliderComponent implements AfterViewInit {
       });
 
       this.cd.detectChanges();
+
     }
 
   setGenreName(genre: Genre) {

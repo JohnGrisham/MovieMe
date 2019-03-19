@@ -6,11 +6,11 @@
 
 <ion-content padding>
 
-  <movie-slider id="nowPlaying" *ngIf="mdata.inTheatres.length > 0" [movies]="mdata.inTheatres" [slidesPerView]="slidesPerView"></movie-slider>
+  <movie-slider #Slider id="nowPlaying" *ngIf="mdata.inTheatres.length > 0" [movies]="mdata.inTheatres"></movie-slider>
 
-  <movie-slider id="nowPlayingNearYou" *ngIf="mdata.nearbyShowings.length > 0" [movies]="mdata.nearbyShowings" [slidesPerView]="slidesPerView"></movie-slider>
+  <movie-slider #Slider id="nowPlayingNearYou" *ngIf="mdata.nearbyShowings.length > 0" [movies]="mdata.nearbyShowings"></movie-slider>
 
-  <movie-slider id="genreSuggestions" *ngIf="mdata.suggestedByGenre.length > 0" [movies]="mdata.suggestedByGenre" [showGenres]="true" [slidesPerView]="slidesPerView"></movie-slider>
+  <movie-slider #Slider id="genreSuggestions" *ngIf="mdata.suggestedByGenre.length > 0" [movies]="mdata.suggestedByGenre" [showGenres]="true"></movie-slider>
 
   <div class="no-showings" *ngIf="mdata.nearbyShowings.length <= 0 && loc.nearbyTheaters.length > 0">
     <h3>No showtimes could be found but here are the theatres near you!</h3>
