@@ -20,12 +20,8 @@ movie-slider {
       -webkit-perspective: 1000;
     }
 
-    .card {
-      display: flex;
-      height: 650px;
-      align-items: center;
-      justify-content: center;
-      max-width: 40% !important;
+    .swiper-slide {
+      width: auto;
     }
 
     .genres {

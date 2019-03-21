@@ -31,8 +31,15 @@ export class MovieSliderComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+        this.slider.loop = true;
+        this.slider.centeredSlides = true;
+        
+        this.setSlidesPerView();
+
         this.platform.resize.subscribe(() => {
         this.screenResized = true;
+
+        this.setSlidesPerView();
 
       });
 
@@ -54,5 +61,28 @@ export class MovieSliderComponent implements AfterViewInit {
       this.checkInitalOverflow = true;
       return element1.scrollHeight > element2.clientHeight || element1.scrollWidth > element2.clientWidth;
     }
+ }
+
+ setSlidesPerView() {
+
+   if(this.platform.width() >= 1600) {
+     setslides(this.slider, 5);
+   }
+
+   else if(this.platform.width() >= 1000 && this.platform.width() < 1600) {
+     setslides(this.slider, 3);
+   }
+
+   else if(this.platform.width() < 1000) {
+     setslides(this.slider, 1);
+   }
+
+   function setslides(slider: Slides, numSlides: Number) {
+     slider.slidesPerView = numSlides;
+     slider.resize();
+     slider.update();
+   }
+
+   this.cd.detectChanges();
  }
 }

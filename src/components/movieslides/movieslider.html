@@ -1,5 +1,5 @@
-  <ion-slides #Slides class="slides" *ngIf="movies.length > 0" centeredSlides="true" loop="true" slidesPerView="3">
-    <ion-slide class="movie card" *ngFor="let movie of movies">
+  <ion-slides #Slides class="swiper-wrapper" *ngIf="movies.length > 0">
+    <ion-slide class="movie card swiper-slide" *ngFor="let movie of movies">
       <div #innerMovie class="inner-movie">
         <a (click)="pushDetails(movie)">
         <div *ngIf="movie.showtimes">

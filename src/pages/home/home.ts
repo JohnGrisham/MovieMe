@@ -1,4 +1,4 @@
-import { Component, ViewChildren, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChildren, ViewChild, AfterViewInit, ChangeDetectorRef, QueryList } from '@angular/core';
 import { NavController, IonicPage, Slides, Platform } from 'ionic-angular';
 import { MovieSliderComponent } from '../../components/movieslides/movieslider';
 import { Plugins } from '@capacitor/core';
@@ -17,8 +17,6 @@ const { Browser } = Plugins;
   templateUrl: 'home.html',
 })
 export class HomePage implements AfterViewInit {
-
-  @ViewChildren('Slider') Slides: MovieSliderComponent[];
 
   private suggestionsTemporary: Movie[] = [];
 
@@ -58,11 +56,8 @@ export class HomePage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-        this.platform.resize.subscribe(() => {
 
-        this.setSlidesPerView();
-        });
-    }
+  }
 
   ionViewDidLoad() {
   }
@@ -106,23 +101,5 @@ export class HomePage implements AfterViewInit {
              resolve();
        });
    });
-   }
-
-   setSlidesPerView() {
-
-     if(this.platform.width() >= 1200) {
-       this.Slides.forEach((slider) => slider.slider.slidesPerView = 5);
-       console.log(this.platform.width());
-     }
-
-     else if(this.platform.width() >= 319 && this.platform.width() < 1200) {
-       this.Slides.forEach((slider) => slider.slider.slidesPerView = 3);
-     }
-
-     else if(this.platform.width() < 319) {
-       this.Slides.forEach((slider) => slider.slider.slidesPerView = 1);
-     }
-
-     this.cd.detectChanges();
    }
 }
