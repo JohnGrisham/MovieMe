@@ -4,12 +4,20 @@ import { ShowTime } from '../showtime/showtime.model';
 export class Movie {
   id: number;
   title: string;
+  name: string;
   poster_path: string;
   overview: string;
   release_date: string;
+  rated: string;
+  vote_average: number;
+  rating: string;
+  metascore: string;
+  runtime: string;
   longDescription: string;
   genres: Genre[] = [];
   imdb_id: string;
+
+  ratings: Object[];
 
   showtimes: ShowTime[] = [];
 
@@ -35,11 +43,20 @@ export class Movie {
       }
     }
 
+
+    // Refactor - Make loop
     this.id = movieResponse.id;
     this.title = movieResponse.title;
+    this.name = movieResponse.name;
     this.poster_path = movieResponse.poster_path;
     this.overview = movieResponse.overview;
     this.release_date = movieResponse.release_date;
+    this.rated = movieResponse.rated;
+    this.vote_average = movieResponse.vote_average;
+    this.rating = movieResponse.rating;
+    this.ratings = movieResponse.ratings;
+    this.metascore = movieResponse.metascore;
+    this.runtime = movieResponse.runtime;
     this.longDescription = movieResponse.longDescription;
     this.imdb_id = movieResponse.imdb_id;
     this.videos = movieResponse.videos;

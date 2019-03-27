@@ -12,6 +12,25 @@ page-detailsview {
     min-width: 2000px;
   }
 
+  .ratings {
+    width: 400px;
+  }
+
+  .logo {
+    width: 24%;
+    display: inline-block;
+  }
+
+  .logo img {
+    width: 90%;
+  }
+
+  .logo span {
+    display: block;
+    text-align: center;
+    width: 90%;
+  }
+
   .movie-inner {
     width: 40%;
     display: inline-block;
@@ -80,6 +99,11 @@ page-detailsview {
   .actor img {
     height: 150px;
     width: 125px;
+  }
+
+  .grayout {
+    opacity: 0.6; /* Real browsers */
+    filter: alpha(opacity = 60); /* MSIE */
   }
 
   a {

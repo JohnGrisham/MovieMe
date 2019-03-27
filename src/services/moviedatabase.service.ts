@@ -5,8 +5,11 @@ import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Movie } from '../shared/movie/movie.model';
 import { Genre } from '../shared/genre/genre.model';
+import { Client } from 'imdb-api';
+
 // @ts-ignore
 const Filter = require('bad-words');
+const Imdb: Client = require('imdb-api');
 
 @Injectable()
 export class MoviedatabaseService {
@@ -25,12 +28,14 @@ export class MoviedatabaseService {
   private promisePool: Promise<any>[] = [];
 
   private tmdbApi: string = '828228e4b2683577df9289c730ed85a2';
+  private imdbApi: string = '5c8dafe8';
 
   constructor(private http: Http, private datePipe: DatePipe, private auth: AuthService) {
     this.date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
     this.oneMonthAgoToday = this.datePipe.transform(Date.now() - 2.628e+9, 'yyyy-MM-dd');
    }
 
+   //#region TBDB calls
    movieSearch(titleQuery) : Observable<any> {
      return this.http.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApi}&include_adult=false&include_video=false&query=${titleQuery}`);
    }
@@ -51,10 +56,6 @@ export class MoviedatabaseService {
      return this.http.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${this.tmdbApi}&include_adult=false&include_video=false&language=en-US&region=US`);
    }
 
-   lookUpnearbyShows(zip) : Observable<any> {
-     return this.http.get(`http://data.tmsapi.com/v1.1/movies/showings?startDate=${this.date}&zip=${zip}&radius=10&units=mi&api_key=mx9fj3vj38n4w7ufzgvr5m3j`);
-   }
-
    genreSuggestions(genre : Genre) : Observable<any> {
      if(this.auth.genres) {
        return this.http.get(`https://api.themoviedb.org/3/discover/movie?api_key=${this.tmdbApi}&sort_by=vote_count.desc&include_adult=false&include_video=false&with_genres=${genre.id}&page=1&primary_release_date.lte=${this.date}&primary_release_date.gte=${this.oneMonthAgoToday}&language=en-US&region=US`);
@@ -63,6 +64,15 @@ export class MoviedatabaseService {
 
    getGenreIds() : Observable<any> {
      return this.http.get(`https://api.themoviedb.org/3/genre/movie/list?language=en-US&api_key=${this.tmdbApi}`);
+   }
+   //#endregion
+
+   lookUpnearbyShows(zip) : Observable<any> {
+     return this.http.get(`http://data.tmsapi.com/v1.1/movies/showings?startDate=${this.date}&zip=${zip}&radius=10&units=mi&api_key=mx9fj3vj38n4w7ufzgvr5m3j`);
+   }
+
+   getOMDB(id: string) {
+     return Imdb.get({id: id}, {apiKey: this.imdbApi});
    }
 
    screenKeyWords(text) {

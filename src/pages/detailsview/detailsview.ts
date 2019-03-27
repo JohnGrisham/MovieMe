@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Movie } from '../../shared/movie/movie.model';
@@ -24,9 +24,15 @@ export class DetailsviewPage {
 
   private movie: Movie = this.navParams.data;
   private cast: Array<Object>;
+
   private popover: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mdata: MoviedatabaseService, private popOvrCtrl: PopoverController) {
+  // The global instance of space to replace spaces in ratings
+  private spaceRegex = / /g;
+
+  private aggregateRating = 0;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private mdata: MoviedatabaseService, private popOvrCtrl: PopoverController, private cd: ChangeDetectorRef) {
   }
 
   ionViewDidLoad() {
@@ -34,15 +40,37 @@ export class DetailsviewPage {
       .toPromise()
         .then((res) =>
           {
-            let details = res.json() as Movie;
-            for (let key in details) {
-              if(this.movie[key] == null || this.movie[key] == undefined) {
-                this.movie[key] = details[key];
-              }
-            }
+            parseDetails(res, this.movie);
             this.cast = this.movie.credits.cast;
-            console.log(this.movie);
-          });
+          }).then(() => this.mdata.getOMDB(this.movie.imdb_id))
+                  .then((res) => {
+                    parseDetails(res, this.movie);
+                      }).then(() => {
+                        this.movie.ratings = this.movie.ratings.filter(rt => rt['Source'] && rt['Value'] != 0);
+                        this.movie.ratings.forEach(rt => {
+                          let formatted = rt['Value'].replace(/\/100|\/10|\%/g, '')
+                          formatted.length === 1 ? formatted = parseInt(formatted) * 10 : formatted = parseInt(formatted.replace(/\./, ''));
+                          this.aggregateRating += formatted;
+                        });
+                      }).then(() => {
+                        if(this.movie.vote_average.toString)
+                        this.aggregateRating += this.movie.vote_average.toString().length === 1 ? this.movie.vote_average * 10 : parseInt(this.movie.vote_average.toString().replace(/\./g, ''));
+                          let tmdbRating = 0;
+                          if(this.movie.vote_average && this.movie.vote_average != 0) {
+                            tmdbRating++;
+                          }
+                          this.aggregateRating = this.aggregateRating / (this.movie.ratings.length + tmdbRating);
+                        });
+
+              function parseDetails(res, movie) {
+                let details;
+                res.headers ? details = res.json() as Movie : details = res as Movie;
+                for (let key in details) {
+                  if(movie[key] == null || movie[key] == undefined) {
+                    movie[key] = details[key];
+                  }
+                }
+              }
   }
 
   viewTrailer(movie) {

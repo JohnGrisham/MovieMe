@@ -22,8 +22,14 @@
     <div class="movie-inner">
     <img src="{{movie.poster_path ? 'https://image.tmdb.org/t/p/original' + movie.poster_path : '/assets/imgs/no_image.jpg'}}" class="poster">
     <circle-progress
-    [percent]="movie.vote_average * 10"
-    [animation]="true"></circle-progress>
+    [percent]="aggregateRating"
+    [animation]="true"
+    [subtitle]="'Overall rating'"
+    ></circle-progress>
+      <div class="ratings">
+        <div class="logo" [ngClass]="{'grayout' : !movie.vote_average}"><a><img src="/assets/icon/the-movie-db-api.png"><span *ngIf="movie.vote_average || movie.vote_average != 0">{{movie.vote_average}}</span></a></div>
+        <div *ngFor="let rating of movie.ratings" class="logo"><a *ngIf="rating.Source"><img src="{{'/assets/icon/' + rating.Source.replace(spaceRegex, '_') + '.png'}}"><span>{{rating.Value}}</span></a></div>
+      </div>
     <div id="cast">
       <h2>Top Billed Cast</h2>
       <div *ngFor="let actor of cast | slice:0:5" class="actor">
