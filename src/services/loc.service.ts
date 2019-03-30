@@ -13,6 +13,7 @@ import { Movie } from '../shared/movie/movie.model';
 import { UserLocation } from '../shared/location/userlocation.model';
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { CacheService } from "ionic-cache";
 
 @Injectable()
 export class LocService {
@@ -26,7 +27,7 @@ export class LocService {
   zip: String;
   timezone;
 
-  constructor(private http: Http, private auth: AuthService, private mdata: MoviedatabaseService, private geoloc: Geolocation) {
+  constructor(private http: Http, private auth: AuthService, private mdata: MoviedatabaseService, private geoloc: Geolocation, private cache: CacheService) {
     this.nearbyTheaters = [];
   }
 

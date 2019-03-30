@@ -33,7 +33,7 @@ export class MovieSliderComponent implements AfterViewInit {
   ngAfterViewInit() {
         this.slider.loop = true;
         this.slider.centeredSlides = true;
-        
+
         this.setSlidesPerView();
 
         this.platform.resize.subscribe(() => {
@@ -82,7 +82,5 @@ export class MovieSliderComponent implements AfterViewInit {
      slider.resize();
      slider.update();
    }
-
-   this.cd.detectChanges();
  }
 }

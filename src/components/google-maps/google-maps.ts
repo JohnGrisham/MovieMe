@@ -1,6 +1,9 @@
 import { Component, Input, Renderer2, ElementRef, Inject, AfterViewInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Plugins } from '@capacitor/core';
+import { Observable } from 'rxjs/RX'
+
+import { CacheService } from "ionic-cache";
 import {} from 'googlemaps';
 
 import { LocService } from '../../services/loc.service';
@@ -24,7 +27,7 @@ export class GoogleMapComponent implements AfterViewInit {
 
     private scriptAppended = false;
 
-    constructor(private renderer: Renderer2, private element: ElementRef, @Inject(DOCUMENT) private _document, private loc: LocService){
+    constructor(private renderer: Renderer2, private element: ElementRef, @Inject(DOCUMENT) private _document, private loc: LocService, private cache: CacheService){
 
     }
 
@@ -43,7 +46,7 @@ export class GoogleMapComponent implements AfterViewInit {
 
             this.loadSDK().then((res) => {
 
-                  this.initMap().then((res) => {
+                  this.initMap().toPromise().then((res) => {
                     resolve(true);
                 }, (err) => {
                     reject(err);
@@ -149,9 +152,8 @@ export class GoogleMapComponent implements AfterViewInit {
 
     }
 
-    private initMap(): Promise<any> {
-
-        return new Promise((resolve, reject) => {
+    private initMap(): Observable<any> {
+        let request = Observable.fromPromise(new Promise((resolve, reject) => {
 
             this.loc.getCoords().then((position) => {
 
@@ -183,7 +185,9 @@ export class GoogleMapComponent implements AfterViewInit {
 
             });
 
-        });
+        }));
+
+        return this.cache.loadFromObservable('map-data', request);
 
     }
 

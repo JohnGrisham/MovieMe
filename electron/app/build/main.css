@@ -25750,7 +25750,7 @@ google-map {
 }
 
 movie-slider ion-slides {
-  height: 700px;
+  min-height: 700px;
 }
 
 movie-slider .inner-movie {
@@ -25769,21 +25769,12 @@ movie-slider .swiper-wrapper {
   -webkit-perspective: 1000;
 }
 
-movie-slider .card {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 650px;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  max-width: 40% !important;
+movie-slider .swiper-container {
+  height: inherit !important;
+}
+
+movie-slider .swiper-slide {
+  width: auto;
 }
 
 movie-slider .genres {
@@ -25893,6 +25884,25 @@ page-detailsview .movie {
   min-width: 2000px;
 }
 
+page-detailsview .ratings {
+  width: 400px;
+}
+
+page-detailsview .logo {
+  width: 24%;
+  display: inline-block;
+}
+
+page-detailsview .logo img {
+  width: 90%;
+}
+
+page-detailsview .logo span {
+  display: block;
+  text-align: center;
+  width: 90%;
+}
+
 page-detailsview .movie-inner {
   width: 40%;
   display: inline-block;
@@ -25969,6 +25979,13 @@ page-detailsview .actor {
 page-detailsview .actor img {
   height: 150px;
   width: 125px;
+}
+
+page-detailsview .grayout {
+  opacity: 0.6;
+  /* Real browsers */
+  filter: alpha(opacity=60);
+  /* MSIE */
 }
 
 page-detailsview a {

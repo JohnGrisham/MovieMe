@@ -42,12 +42,13 @@ export class DetailsviewPage {
           {
             parseDetails(res, this.movie);
             this.cast = this.movie.credits.cast;
-          }).then(() => this.mdata.getOMDB(this.movie.imdb_id))
+            }).then(() => this.mdata.getOMDB(this.movie.imdb_id)
+                .toPromise()
                   .then((res) => {
                     parseDetails(res, this.movie);
                       }).then(() => {
-                        this.movie.ratings = this.movie.ratings.filter(rt => rt['Source'] && rt['Value'] != 0);
-                        this.movie.ratings.forEach(rt => {
+                        this.movie.Ratings = this.movie.Ratings.filter(rt => rt['Source'] && rt['Value'] != 0);
+                        this.movie.Ratings.forEach(rt => {
                           let formatted = rt['Value'].replace(/\/100|\/10|\%/g, '')
                           formatted.length === 1 ? formatted = parseInt(formatted) * 10 : formatted = parseInt(formatted.replace(/\./, ''));
                           this.aggregateRating += formatted;
@@ -59,8 +60,9 @@ export class DetailsviewPage {
                           if(this.movie.vote_average && this.movie.vote_average != 0) {
                             tmdbRating++;
                           }
-                          this.aggregateRating = this.aggregateRating / (this.movie.ratings.length + tmdbRating);
-                        });
+                          this.aggregateRating = this.aggregateRating / (this.movie.Ratings.length + tmdbRating);
+                          console.log(this.movie);
+                        }));
 
               function parseDetails(res, movie) {
                 let details;
@@ -79,7 +81,31 @@ export class DetailsviewPage {
     this.popover.present();
   }
 
-  async imdbLink() {
-    await Browser.open({ url: `https://www.imdb.com/title/${this.movie.imdb_id}`, presentationStyle: "fullscreen" });
+  async linkToTitle(source) {
+    let src = source.toString();
+    let link = null;
+
+    switch(src) {
+      case "tmdb": {
+        link = 'https://www.themoviedb.org/movie/' + this.movie.id;
+        break;
+      }
+      case "Internet Movie Database": {
+        link = this.movie.imdburl;
+        break;
+      }
+      case "Rotten Tomatoes": {
+        link = 'https://www.rottentomatoes.com/m/' + this.movie.Title.replace(/[^\w\s]/gi, '').replace(/ /g, '_').toLowerCase();
+        break;
+      }
+      case "Metacritic": {
+        link = 'https://www.metacritic.com/movie/' + this.movie.Title.replace(/[^\w\s]/gi, '').replace(/ /g, '-').toLowerCase();
+        break;
+      }
+      default: {
+        link = null;
+      }
+    }
+    if(link) { await Browser.open({ url: link, presentationStyle: "fullscreen" }); }
   }
 }

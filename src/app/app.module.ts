@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http'
 import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { Geolocation } from '@ionic-native/geolocation';
+import { CacheModule } from "ionic-cache";
 import { MyApp } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
@@ -59,6 +60,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     UpcomingPageModule,
     TopratedPageModule,
     AngularFireModule.initializeApp(firebaseConfig.fire),
+    CacheModule.forRoot(),
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages: true,
     })

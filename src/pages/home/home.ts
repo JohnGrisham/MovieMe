@@ -40,15 +40,17 @@ export class HomePage implements AfterViewInit {
 
               let resultsSliced;
 
-              for(var x = 0; x < this.auth.genres.length; x++) {
-                this.mdata.genreSuggestions(this.auth.genres[x])
-                  .toPromise()
-                    .then((res) => {
-                      resultsSliced = res.json().results.slice(0, 10);
-                      resultsSliced.forEach(
-                        res => this.filterContent(res, this.mdata));
-                    }).then(() => this.mdata.suggestedByGenre = this.suggestionsTemporary);
+          if(this.auth.genres) {
+            for(var x = 0; x < this.auth.genres.length; x++) {
+              this.mdata.genreSuggestions(this.auth.genres[x])
+                .toPromise()
+                  .then((res) => {
+                    resultsSliced = res.json().results.slice(0, 10);
+                    resultsSliced.forEach(
+                      res => this.filterContent(res, this.mdata));
+                  }).then(() => this.mdata.suggestedByGenre = this.suggestionsTemporary);
               }
+           }
 
     } else {
       this.navCtrl.setRoot(LoginPage);

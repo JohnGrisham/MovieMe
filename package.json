@@ -21,8 +21,8 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@capacitor/android": "^1.0.0-beta.11",
-    "@capacitor/cli": "^1.0.0-beta.11",
-    "@capacitor/core": "^1.0.0-beta.8",
+    "@capacitor/cli": "^1.0.0-beta.19",
+    "@capacitor/core": "^1.0.0-beta.19",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/firebase-analytics": "^4.17.0",
     "@ionic-native/geolocation": "^4.19.0",
@@ -48,7 +48,7 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.2.3",
+    "@ionic/app-scripts": "^3.2.3",
     "@types/googlemaps": "^3.30.16",
     "angularfire2": "^5.1.0",
     "typescript": "^2.9.2",

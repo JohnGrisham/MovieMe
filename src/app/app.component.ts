@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { App, MenuController, Nav, Platform } from 'ionic-angular';
+import { CacheService } from "ionic-cache";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
@@ -22,16 +23,20 @@ export class MyApp {
   private platform;
   private menu: MenuController;
   private auth: AuthService;
+  private cache: CacheService;
   private loc: LocService;
 
   @ViewChild(Nav) nav: Nav;
 
-  constructor(app: App, platform: Platform, menu: MenuController, private statusBar: StatusBar, splashScreen: SplashScreen, auth: AuthService, loc: LocService) {
+  constructor(app: App, platform: Platform, menu: MenuController, private statusBar: StatusBar, splashScreen: SplashScreen, auth: AuthService, loc: LocService, cache: CacheService) {
       this.menu = menu;
       this.app = app;
       this.platform = platform;
       this.auth = auth;
       this.loc = loc;
+      this.cache = cache;
+
+      this.cache.setDefaultTTL(60 * 60);
 
       statusBar.styleDefault();
       splashScreen.hide();
