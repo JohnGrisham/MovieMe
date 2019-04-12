@@ -6,11 +6,20 @@
 
 <ion-content padding>
 
-  <movie-slider #Slides id="nowPlaying" *ngIf="mdata.inTheatres.length > 0" [movies]="mdata.inTheatres"></movie-slider>
+  <div class="movieslider" *ngIf="mdata.inTheatres.length > 0">
+    <h2>In select theatres</h2>
+    <movie-slider #Slides id="nowPlaying" [movies]="mdata.inTheatres"></movie-slider>
+  </div>
 
-  <movie-slider #Slides id="nowPlayingNearYou" *ngIf="mdata.nearbyShowings.length > 0" [movies]="mdata.nearbyShowings"></movie-slider>
+  <div class="movieslider" *ngIf="mdata.nearbyShowings.length > 0">
+    <h2>In theares near you</h2>
+    <movie-slider #Slides id="nowPlayingNearYou" [movies]="mdata.nearbyShowings"></movie-slider>
+  </div>
 
-  <movie-slider #Slides id="genreSuggestions" *ngIf="mdata.suggestedByGenre.length > 0" [movies]="mdata.suggestedByGenre" [showGenres]="true"></movie-slider>
+  <div class="movieslider" *ngIf="mdata.suggestedByGenre.length > 0">
+    <h2>Recommended from your genres</h2>
+      <movie-slider #Slides id="genreSuggestions" [movies]="mdata.suggestedByGenre" [showGenres]="true"></movie-slider>
+  </div>
 
   <div class="no-showings" *ngIf="mdata.nearbyShowings.length <= 0 && loc.nearbyTheaters.length > 0">
     <h3>No showtimes could be found but here are the theatres near you!</h3>

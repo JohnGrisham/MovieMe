@@ -2,8 +2,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ComponentsModule } from '../components/components.module';
-import { HttpModule } from '@angular/http'
-import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
+import { IonicApp, IonicModule, IonicPageModule, IonicErrorHandler } from 'ionic-angular';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { Geolocation } from '@ionic-native/geolocation';
 import { CacheModule } from "ionic-cache";
@@ -29,12 +29,14 @@ import { DetailsviewPage } from '../pages/detailsview/detailsview';
 import { ViewTrailerPage } from '../pages/viewtrailer/viewtrailer';
 import { SearchviewPage } from '../pages/searchview/searchview';
 
+import { DetailstabsPageModule } from '../pages/detailsview/detailstabs/detailstabs.module';
 import { PopularPageModule } from '../pages/about/discover/popular/popular.module';
 import { TopratedPageModule } from '../pages/about/discover/toprated/toprated.module';
 import { UpcomingPageModule } from '../pages/about/discover/upcoming/upcoming.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { PlatformService } from '../services/platform.service';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     NgxErrorsModule,
     AngularFirestoreModule,
     ComponentsModule,
+    DetailstabsPageModule,
     PopularPageModule,
     UpcomingPageModule,
     TopratedPageModule,
@@ -87,10 +90,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LocService,
     MoviedatabaseService,
     InfiniteScrollService,
+    PlatformService,
     AngularFireAuth,
     AngularFirestore,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

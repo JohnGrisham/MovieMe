@@ -1,5 +1,13 @@
 page-detailsview {
 
+  super-tabs {
+    height: -webkit-fill-available;
+  }
+
+  super-tab {
+    width: 100%;
+  }
+
   .movie .poster {
       min-width: 400px;
       height: 525px;
@@ -32,15 +40,12 @@ page-detailsview {
   }
 
   .movie-inner {
-    width: 40%;
+    width: 100%;
     display: inline-block;
   }
 
   .text {
-    display: inline-block;
-    position: absolute;
-    top: 35%;
-    width: 25%;
+    width: inherit;
   }
 
   .title {
@@ -66,7 +71,7 @@ page-detailsview {
   }
 
   .scroll-content {
-    overflow-y: hidden;
+    overflow-y: auto;
     padding: 0px !important;
   }
 

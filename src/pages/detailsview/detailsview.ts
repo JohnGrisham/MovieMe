@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, IonicPageModule } from 'ionic-angular';
 import { Movie } from '../../shared/movie/movie.model';
 import { MoviedatabaseService } from '../../services/moviedatabase.service';
+import { PlatformService } from '../../services/platform.service';
 
 import { ViewTrailerPage } from '../../pages/viewtrailer/viewtrailer';
 
@@ -20,7 +21,7 @@ const { Browser } = Plugins;
   selector: 'page-detailsview',
   templateUrl: 'detailsview.html',
 })
-export class DetailsviewPage {
+export class DetailsviewPage implements AfterViewInit {
 
   private movie: Movie = this.navParams.data;
   private cast: Array<Object>;
@@ -32,7 +33,8 @@ export class DetailsviewPage {
 
   private aggregateRating = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mdata: MoviedatabaseService, private popOvrCtrl: PopoverController, private cd: ChangeDetectorRef) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private mdata: MoviedatabaseService, private popOvrCtrl: PopoverController, private cd: ChangeDetectorRef, private pltSer: PlatformService) {
+
   }
 
   ionViewDidLoad() {
@@ -61,7 +63,6 @@ export class DetailsviewPage {
                             tmdbRating++;
                           }
                           this.aggregateRating = this.aggregateRating / (this.movie.Ratings.length + tmdbRating);
-                          console.log(this.movie);
                         }));
 
               function parseDetails(res, movie) {
@@ -73,6 +74,10 @@ export class DetailsviewPage {
                   }
                 }
               }
+  }
+
+  ngAfterViewInit() {
+
   }
 
   viewTrailer(movie) {
@@ -95,11 +100,11 @@ export class DetailsviewPage {
         break;
       }
       case "Rotten Tomatoes": {
-        link = 'https://www.rottentomatoes.com/m/' + this.movie.Title.replace(/[^\w\s]/gi, '').replace(/ /g, '_').toLowerCase();
+        link = 'https://www.rottentomatoes.com/m/' + this.movie.title.replace(/[^\w\s]/gi, '').replace(/ /g, '_').toLowerCase();
         break;
       }
       case "Metacritic": {
-        link = 'https://www.metacritic.com/movie/' + this.movie.Title.replace(/[^\w\s]/gi, '').replace(/ /g, '-').toLowerCase();
+        link = 'https://www.metacritic.com/movie/' + this.movie.title.replace(/[^\w\s]/gi, '').replace(/ /g, '-').toLowerCase();
         break;
       }
       default: {

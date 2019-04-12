@@ -3,8 +3,8 @@ import { ShowTime } from '../showtime/showtime.model';
 
 export class Movie {
   id: number;
-  Title: string;
-  name: string;
+  title: string;
+  Name: string;
   poster_path: string;
   overview: string;
   release_date: string;
@@ -48,8 +48,8 @@ export class Movie {
 
     // Refactor - Make loop
     this.id = movieResponse.id;
-    this.Title = movieResponse.Title;
-    this.name = movieResponse.name;
+    this.title = movieResponse.title;
+    this.Name = movieResponse.Name;
     this.poster_path = movieResponse.poster_path;
     this.overview = movieResponse.overview;
     this.release_date = movieResponse.release_date;

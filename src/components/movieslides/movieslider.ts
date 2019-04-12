@@ -82,5 +82,7 @@ export class MovieSliderComponent implements AfterViewInit {
      slider.resize();
      slider.update();
    }
+
+   this.cd.detectChanges();
  }
 }

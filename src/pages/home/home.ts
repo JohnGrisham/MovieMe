@@ -1,6 +1,5 @@
 import { Component, ViewChildren, ViewChild, AfterViewInit, ChangeDetectorRef, QueryList } from '@angular/core';
 import { NavController, IonicPage, Slides, Platform } from 'ionic-angular';
-import { MovieSliderComponent } from '../../components/movieslides/movieslider';
 import { Plugins } from '@capacitor/core';
 import { Movie } from '../../shared/movie/movie.model';
 import { AuthService } from '../../services/auth.service';

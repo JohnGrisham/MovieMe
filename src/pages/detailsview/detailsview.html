@@ -30,6 +30,9 @@
         <div *ngIf="movie.vote_average || movie.vote_average != 0" class="logo" [ngClass]="{'grayout' : !movie.vote_average}"><a (click)="linkToTitle('tmdb')"><img src="/assets/icon/the-movie-db-api.png"><span>{{movie.vote_average}}</span></a></div>
         <div *ngFor="let rating of movie.Ratings" class="logo"><a *ngIf="rating.Source" (click)="linkToTitle(rating.Source)"><img src="{{'/assets/icon/' + rating.Source.replace(spaceRegex, '_') + '.png'}}"><span>{{rating.Value}}</span></a></div>
       </div>
+      <div class="tabs-container" [style.width.px]="pltSer.platformWidthStyle">
+        <page-detailstabs [movie]='movie'></page-detailstabs>
+  </div>
     <div id="cast">
       <h2>Top Billed Cast</h2>
       <div *ngFor="let actor of cast | slice:0:5" class="actor">
@@ -38,12 +41,6 @@
         <p>"{{actor.character}}"</p>
       </div>
     </div>
-  </div>
-  <div class="text">
-    <h1 class="title">{{movie.title}}</h1>
-    <p class="overview">{{movie.overview ? movie.overview : movie.longDescription}}</p>
-    <button (click)="viewTrailer(movie)" ion-button round outline large>Watch Trailer</button>
-    <button (click)="imdbLink()" ion-button round outline large>Look up on IMDB</button>
   </div>
   </div>
 </ion-content>

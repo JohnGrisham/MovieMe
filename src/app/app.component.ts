@@ -17,8 +17,6 @@ export class MyApp {
   pages;
   rootPage;
 
-  public screenResized = false;
-
   private app;
   private platform;
   private menu: MenuController;
