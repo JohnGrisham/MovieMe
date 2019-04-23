@@ -1,0 +1,7 @@
+<ion-tabs tabsPlacement='top' tabslayout=''>
+    <ion-tab #tab1 [root]="infoRoot" [rootParams]="movie" tabTitle="Info" tabIcon="information-circle" (swipe)="moveTab($event, tab1)"></ion-tab>
+    <ion-tab #tab2 [root]="castRoot" [rootParams]="movie" tabTitle="Cast" tabIcon="information-circle" (swipe)="moveTab($event, tab2)"></ion-tab>
+    <ion-tab #tab3 [root]="reviewsRoot" [rootParams]="movie" tabTitle="Reviews" tabIcon="information-circle" (swipe)="moveTab($event, tab3)"></ion-tab>
+    <ion-tab #tab4 [root]="commentsRoot" [rootParams]="movie" tabTitle="Comments" tabIcon="information-circle" (swipe)="moveTab($event, tab4)"></ion-tab>
+    <ion-tab #tab5 [root]="relatedRoot" [rootParams]="movie" tabTitle="Related" tabIcon="information-circle" (swipe)="moveTab($event, tab5)"></ion-tab>
+</ion-tabs>
